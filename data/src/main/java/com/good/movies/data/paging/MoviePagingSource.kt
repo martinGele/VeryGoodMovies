@@ -6,6 +6,10 @@ import com.good.movies.data.remote.api.MovieApiService
 import com.good.movies.data.remote.dto.toDomain
 import com.good.movies.domain.model.Movie
 
+/**
+ * Paging source to load movies from the MovieApiService.
+ */
+
 class MoviePagingSource(
     private val movieApiService: MovieApiService,
     private val query: String? = null

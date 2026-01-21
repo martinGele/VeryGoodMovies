@@ -21,3 +21,15 @@ local.properties
 /domain/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
 /ui/build/
 /ui/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
+/.idea/.gitignore
+/.idea/AndroidProjectSystem.xml
+/.idea/appInsightsSettings.xml
+/.idea/compiler.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/gradle.xml
+/.idea/markdown.xml
+/.idea/migrations.xml
+/.idea/misc.xml
+/.idea/runConfigurations.xml
+/.claude/settings.local.json
+/.idea/vcs.xml

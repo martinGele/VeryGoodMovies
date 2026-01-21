@@ -4,6 +4,9 @@ import com.good.movies.data.remote.api.MovieApiService
 import com.good.movies.domain.repository.MovieRepository
 import javax.inject.Inject
 
+/**
+ * Implementation of the MovieRepository interface.
+ */
 class MovieRepositoryImpl @Inject constructor(
     private val movieApiService: MovieApiService
 ) : MovieRepository

@@ -6,4 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * API service interface for fetching movie data.
+ */
 interface MovieApiService
