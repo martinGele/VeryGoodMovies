@@ -24,13 +24,15 @@ data class MovieDto(
     val originalLanguage: String
 )
 
+private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
+
 fun MovieDto.toDomain(): Movie {
     return Movie(
         id = id,
         title = title,
         overview = overview,
-        posterPath = posterPath,
-        backdropPath = backdropPath,
+        posterPath = posterPath?.let { "$IMAGE_BASE_URL$it" },
+        backdropPath = backdropPath?.let { "$IMAGE_BASE_URL$it" },
         voteAverage = voteAverage,
         voteCount = voteCount,
         releaseDate = releaseDate,
