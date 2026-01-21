@@ -26,7 +26,7 @@ import com.good.movies.ui.theme.Size
 import com.good.movies.ui.theme.Spacing
 
 @Composable
-fun MovieContent(
+fun MovieItem(
     movie: Movie, modifier: Modifier = Modifier
 ) {
     Card(

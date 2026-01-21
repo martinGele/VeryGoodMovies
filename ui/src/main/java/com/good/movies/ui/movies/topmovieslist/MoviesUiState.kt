@@ -8,5 +8,6 @@ import kotlinx.coroutines.flow.emptyFlow
 
 @Stable
 data class MoviesUiState(
-    val topRatedMovies: Flow<PagingData<Movie>> = emptyFlow()
+    val movies: Flow<PagingData<Movie>> = emptyFlow(),
+    val searchQuery: String = ""
 )

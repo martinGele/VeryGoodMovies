@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import com.good.movies.ui.theme.Spacing
 
 @Composable
-fun ErrorContent(
+fun ErrorComponent(
     message: String,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier

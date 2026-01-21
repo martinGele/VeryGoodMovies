@@ -16,4 +16,12 @@ interface MovieApiService {
         @Query("language") language: String = "en-US",
         @Query("without_genres") withoutGenres: String = "99,10755"
     ): MovieResponse
+
+    @GET("search/movie")
+    suspend fun searchMovies(
+        @Query("query") query: String,
+        @Query("page") page: Int,
+        @Query("include_adult") includeAdult: Boolean = false,
+        @Query("language") language: String = "en-US"
+    ): MovieResponse
 }
