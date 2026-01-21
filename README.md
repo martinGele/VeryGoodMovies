@@ -2,6 +2,13 @@
 
 A movie browsing app built for Android. It pulls data from TMDB and lets you browse popular movies or search for specific ones.
 
+## Setup
+
+1. Get a free API key from [The Movie Database (TMDB)](https://www.themoviedb.org/documentation/api).
+2. Clone this repo.
+3. In `data/di/NetworkModule.kt`, replace `YOUR_TMDB_API_KEY` with your actual API key and you can store it in the local properties.
+4. Build and run the app on an Android device or emulator.
+
 ## What's Inside
 
 The app follows Clean Architecture with separate modules:

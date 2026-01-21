@@ -1,8 +1,13 @@
 package com.good.movies.domain.model
 
-/**
- * Data class representing a Movie entity.
- */
 data class Movie(
-    val title: String
+    val id: Int,
+    val title: String,
+    val overview: String,
+    val posterPath: String?,
+    val backdropPath: String?,
+    val voteAverage: Double,
+    val voteCount: Int,
+    val releaseDate: String,
+    val originalLanguage: String
 )

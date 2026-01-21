@@ -1,12 +1,19 @@
 package com.good.movies.data.remote.api
 
-import com.good.movies.data.remote.dto.MovieDto
 import com.good.movies.data.remote.dto.MovieResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
-/**
- * API service interface for fetching movie data.
- */
-interface MovieApiService
+interface MovieApiService {
+
+    @GET("discover/movie")
+    suspend fun getTopRatedMovies(
+        @Query("page") page: Int,
+        @Query("sort_by") sortBy: String = "vote_average.desc",
+        @Query("vote_count.gte") voteCountGte: Int = 200,
+        @Query("include_adult") includeAdult: Boolean = false,
+        @Query("include_video") includeVideo: Boolean = false,
+        @Query("language") language: String = "en-US",
+        @Query("without_genres") withoutGenres: String = "99,10755"
+    ): MovieResponse
+}
