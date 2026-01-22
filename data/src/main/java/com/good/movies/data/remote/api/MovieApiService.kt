@@ -1,6 +1,7 @@
 package com.good.movies.data.remote.api
 
 import com.good.movies.data.remote.dto.MovieResponse
+import com.good.movies.data.remote.dto.TvResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -24,4 +25,12 @@ interface MovieApiService {
         @Query("include_adult") includeAdult: Boolean = false,
         @Query("language") language: String = "en-US"
     ): MovieResponse
+
+    @GET("search/tv")
+    suspend fun searchTvSeries(
+        @Query("query") query: String,
+        @Query("page") page: Int,
+        @Query("include_adult") includeAdult: Boolean = false,
+        @Query("language") language: String = "en-US"
+    ): TvResponse
 }

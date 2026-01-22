@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.good.movies.ui.movies.topmovieslist.MoviesScreen
-import com.good.movies.ui.movies.topmovieslist.MoviesViewModel
+import com.good.movies.ui.navigation.MainNavGraph
 import com.good.movies.ui.theme.VeryGoodMoviesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,8 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             VeryGoodMoviesTheme {
-                val viewModel: MoviesViewModel = hiltViewModel()
-                MoviesScreen(viewModel = viewModel)
+                MainNavGraph()
             }
         }
     }

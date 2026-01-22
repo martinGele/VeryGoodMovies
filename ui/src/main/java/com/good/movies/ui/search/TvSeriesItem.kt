@@ -1,4 +1,4 @@
-package com.good.movies.ui.movies.topmovieslist
+package com.good.movies.ui.search
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,14 +20,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.good.movies.domain.model.Movie
+import com.good.movies.domain.model.TvSeries
 import com.good.movies.ui.theme.Radius
 import com.good.movies.ui.theme.Size
 import com.good.movies.ui.theme.Spacing
 
 @Composable
-fun MovieItem(
-    movie: Movie, modifier: Modifier = Modifier
+fun TvSeriesItem(
+    tvSeries: TvSeries,
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -40,8 +41,8 @@ fun MovieItem(
                 .padding(Spacing.small)
         ) {
             AsyncImage(
-                model = movie.posterPath,
-                contentDescription = movie.title,
+                model = tvSeries.posterPath,
+                contentDescription = tvSeries.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .width(100.dp)
@@ -57,7 +58,7 @@ fun MovieItem(
                     .padding(vertical = Spacing.extraSmall)
             ) {
                 Text(
-                    text = movie.title,
+                    text = tvSeries.name,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -66,7 +67,7 @@ fun MovieItem(
                 Spacer(modifier = Modifier.height(Spacing.extraSmall))
 
                 Text(
-                    text = movie.voteAverageAndCount,
+                    text = tvSeries.voteAverageAndCount,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -74,7 +75,7 @@ fun MovieItem(
                 Spacer(modifier = Modifier.height(Spacing.extraSmall))
 
                 Text(
-                    text = movie.releaseDate,
+                    text = tvSeries.firstAirDate,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -82,7 +83,7 @@ fun MovieItem(
                 Spacer(modifier = Modifier.height(Spacing.small))
 
                 Text(
-                    text = movie.overview,
+                    text = tvSeries.overview,
                     style = MaterialTheme.typography.bodySmall,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis

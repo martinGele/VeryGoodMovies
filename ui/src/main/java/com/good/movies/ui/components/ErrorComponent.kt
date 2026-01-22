@@ -1,4 +1,4 @@
-package com.good.movies.ui.movies.components
+package com.good.movies.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
