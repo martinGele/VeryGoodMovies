@@ -3,6 +3,9 @@ package com.good.movies.core.util
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * A generic function to safely make API calls and handle exceptions.
+ */
 suspend inline fun <T> safeApiCall(
     crossinline apiCall: suspend () -> T
 ): NetworkResult<T> {
