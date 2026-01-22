@@ -22,6 +22,7 @@ import com.good.movies.ui.theme.Spacing
 
 @Composable
 fun MoviesListScreen(
+    onMovieClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MoviesListViewModel = hiltViewModel(),
 ) {
@@ -30,6 +31,7 @@ fun MoviesListScreen(
 
     MoviesScreenContent(
         movies = movies,
+        onMovieClick = onMovieClick,
         modifier = modifier
     )
 }
@@ -38,6 +40,7 @@ fun MoviesListScreen(
 @Composable
 private fun MoviesScreenContent(
     movies: LazyPagingItems<Movie>,
+    onMovieClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     PullToRefreshBox(
@@ -68,7 +71,10 @@ private fun MoviesScreenContent(
                         key = movies.itemKey { it.id }
                     ) { index ->
                         movies[index]?.let { movie ->
-                            MovieItem(movie = movie)
+                            MovieItem(
+                                movie = movie,
+                                onClick = { onMovieClick(movie.id) }
+                            )
                         }
                     }
 

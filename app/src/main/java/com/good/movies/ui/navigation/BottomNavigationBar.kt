@@ -9,6 +9,11 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 
+
+/**
+ * Composable Bottom Navigation Bar for the app.
+ * where we define the navigation items and handle item selection.
+ */
 @Composable
 fun BottomNavigationBar(selectedRoute: String, onItemSelected: (String) -> Unit) {
     val items = listOf(

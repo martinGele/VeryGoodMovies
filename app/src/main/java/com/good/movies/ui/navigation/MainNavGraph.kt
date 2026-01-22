@@ -5,13 +5,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.good.movies.ui.details.DetailsScreen
 import com.good.movies.ui.movies.topmovieslist.MoviesListScreen
 import com.good.movies.ui.search.SearchScreen
 
+/**
+ * Main navigation graph for the app, defining the navigation structure
+ * including HomeScreen, SearchScreen, and DetailsScreen where the movieId is passed as an argument.
+ */
 @Composable
 fun MainNavGraph() {
     val navController = rememberNavController()
@@ -40,10 +47,28 @@ fun MainNavGraph() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(NavigationItem.Home.route) {
-                MoviesListScreen()
+                MoviesListScreen(
+                    onMovieClick = { movieId ->
+                        navController.navigate(NavigationItem.Details.createRoute(movieId))
+                    }
+                )
             }
             composable(NavigationItem.Search.route) {
-                SearchScreen()
+                SearchScreen(
+                    onMovieClick = { movieId ->
+                        navController.navigate(NavigationItem.Details.createRoute(movieId))
+                    }
+                )
+            }
+            composable(
+                route = NavigationItem.Details.route,
+                arguments = listOf(
+                    navArgument("movieId") { type = NavType.IntType }
+                )
+            ) {
+                DetailsScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
             }
         }
     }

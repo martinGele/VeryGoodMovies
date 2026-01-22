@@ -6,6 +6,11 @@ import com.good.movies.data.remote.api.MovieApiService
 import com.good.movies.data.remote.dto.toDomain
 import com.good.movies.domain.model.Movie
 
+/**
+ * PagingSource implementation to load searched movies from the MovieApiService.
+ * It maps the DTO to domain model using the toDomain extension function.
+ * It also handles pagination by providing previous and next keys.
+ */
 class SearchMoviesPagingSource(
     private val movieApiService: MovieApiService,
     private val query: String

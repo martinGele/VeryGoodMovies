@@ -6,7 +6,9 @@ import androidx.paging.PagingData
 import com.good.movies.data.paging.SearchMoviesPagingSource
 import com.good.movies.data.paging.TopRatedMoviesPagingSource
 import com.good.movies.data.remote.api.MovieApiService
+import com.good.movies.data.remote.dto.toDomain
 import com.good.movies.domain.model.Movie
+import com.good.movies.domain.model.MovieDetails
 import com.good.movies.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -35,5 +37,9 @@ class MovieRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = { SearchMoviesPagingSource(movieApiService, query) }
         ).flow
+    }
+
+    override suspend fun getMovieDetails(movieId: Int): MovieDetails {
+        return movieApiService.getMovieDetails(movieId).toDomain()
     }
 }

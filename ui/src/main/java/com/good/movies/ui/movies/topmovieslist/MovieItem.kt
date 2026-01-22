@@ -27,9 +27,12 @@ import com.good.movies.ui.theme.Spacing
 
 @Composable
 fun MovieItem(
-    movie: Movie, modifier: Modifier = Modifier
+    movie: Movie,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
+        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = Size.cardElevation),
         shape = RoundedCornerShape(Radius.medium)
