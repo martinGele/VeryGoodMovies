@@ -23,7 +23,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemKey
 import com.good.movies.domain.model.Movie
 import com.good.movies.domain.model.TvSeries
 import com.good.movies.ui.components.ErrorComponent
@@ -116,7 +115,7 @@ private fun SearchContent(
                             ) {
                                 items(
                                     count = movies.itemCount,
-                                    key = movies.itemKey { it.id }
+                                    key = { index -> "${movies.peek(index)?.id}_$index" }
                                 ) { index ->
                                     movies[index]?.let { movie ->
                                         MovieItem(
@@ -150,7 +149,7 @@ private fun SearchContent(
                             ) {
                                 items(
                                     count = tvSeries.itemCount,
-                                    key = tvSeries.itemKey { it.id }
+                                    key = { index -> "${tvSeries.peek(index)?.id}_$index" }
                                 ) { index ->
                                     tvSeries[index]?.let { tv ->
                                         TvSeriesItem(tvSeries = tv)

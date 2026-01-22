@@ -14,7 +14,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemKey
 import com.good.movies.domain.model.Movie
 import com.good.movies.ui.components.ErrorComponent
 import com.good.movies.ui.components.LoadingComponent
@@ -22,6 +21,7 @@ import com.good.movies.ui.theme.Spacing
 
 @Composable
 fun MoviesListScreen(
+    innerPaddingValues: PaddingValues,
     onMovieClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MoviesListViewModel = hiltViewModel(),
@@ -30,6 +30,7 @@ fun MoviesListScreen(
     val movies = uiState.movies.collectAsLazyPagingItems()
 
     MoviesScreenContent(
+        innerPaddingValues = innerPaddingValues,
         movies = movies,
         onMovieClick = onMovieClick,
         modifier = modifier
@@ -39,6 +40,7 @@ fun MoviesListScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MoviesScreenContent(
+    innerPaddingValues: PaddingValues,
     movies: LazyPagingItems<Movie>,
     onMovieClick: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -63,12 +65,12 @@ private fun MoviesScreenContent(
             is LoadState.NotLoading -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(Spacing.medium),
+                    contentPadding = innerPaddingValues,
                     verticalArrangement = Arrangement.spacedBy(Spacing.small)
                 ) {
                     items(
                         count = movies.itemCount,
-                        key = movies.itemKey { it.id }
+                        key = { index -> "${movies.peek(index)?.id}_$index" }
                     ) { index ->
                         movies[index]?.let { movie ->
                             MovieItem(

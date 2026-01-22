@@ -48,6 +48,7 @@ fun MainNavGraph() {
         ) {
             composable(NavigationItem.Home.route) {
                 MoviesListScreen(
+                    innerPaddingValues = innerPadding,
                     onMovieClick = { movieId ->
                         navController.navigate(NavigationItem.Details.createRoute(movieId))
                     }
