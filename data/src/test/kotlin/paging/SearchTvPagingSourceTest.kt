@@ -1,5 +1,6 @@
 package paging
 
+import androidx.paging.PagingSource
 import com.good.movies.data.paging.SearchTvPagingSource
 import com.good.movies.data.remote.api.MovieApiService
 import com.good.movies.data.remote.dto.TvDto
@@ -65,7 +66,7 @@ class SearchTvPagingSourceTest {
 
         // WHEN
         val result = pagingSource.load(
-            params = androidx.paging.PagingSource.LoadParams.Refresh(
+            params = PagingSource.LoadParams.Refresh(
                 key = null,
                 loadSize = 2,
                 placeholdersEnabled = false
@@ -73,8 +74,8 @@ class SearchTvPagingSourceTest {
         )
 
         // THEN
-        assert(result is androidx.paging.PagingSource.LoadResult.Page)
-        val page = result as androidx.paging.PagingSource.LoadResult.Page
+        assert(result is PagingSource.LoadResult.Page)
+        val page = result as PagingSource.LoadResult.Page
         assert(page.data.size == 2)
         assert(page.prevKey == null)
         assert(page.nextKey == 2)
@@ -100,9 +101,122 @@ class SearchTvPagingSourceTest {
         )
 
         // THEN
-        assert(result is androidx.paging.PagingSource.LoadResult.Error)
-        val errorResult = result as androidx.paging.PagingSource.LoadResult.Error
+        assert(result is PagingSource.LoadResult.Error)
+        val errorResult = result as PagingSource.LoadResult.Error
         assert(errorResult.throwable == exception)
     }
 
+    @Test
+    fun `load returns Page with no nextKey on last page`() = runTest {
+        // GIVEN
+        val tvDtos = listOf(
+            TvDto(
+                id = 3,
+                name = "Final Show",
+                overview = "Last page content",
+                posterPath = "",
+                backdropPath = "",
+                voteAverage = 7.5,
+                voteCount = 500,
+                firstAirDate = "2020-01-01",
+                originalLanguage = "en"
+            )
+        )
+
+        coEvery {
+            movieApiService.searchTvSeries(query = query, page = 2)
+        } returns TvResponse(
+            page = 2,
+            results = tvDtos,
+            totalPages = 2,
+            totalResults = 3
+        )
+
+        pagingSource = SearchTvPagingSource(movieApiService, query)
+
+        // WHEN
+        val result = pagingSource.load(
+            params = PagingSource.LoadParams.Append(
+                key = 2,
+                loadSize = 20,
+                placeholdersEnabled = false
+            )
+        )
+
+        // THEN
+        assert(result is PagingSource.LoadResult.Page)
+        val page = result as PagingSource.LoadResult.Page
+        assert(page.prevKey == 1)
+        assert(page.nextKey == null)
+    }
+
+    @Test
+    fun `load returns empty Page when no results found`() = runTest {
+        // GIVEN
+        coEvery {
+            movieApiService.searchTvSeries(query = query, page = 1)
+        } returns TvResponse(
+            page = 1,
+            results = emptyList(),
+            totalPages = 0,
+            totalResults = 0
+        )
+
+        // WHEN
+        val result = pagingSource.load(
+            params = PagingSource.LoadParams.Refresh(
+                key = null,
+                loadSize = 20,
+                placeholdersEnabled = false
+            )
+        )
+
+        // THEN
+        assert(result is PagingSource.LoadResult.Page)
+        val page = result as PagingSource.LoadResult.Page
+        assert(page.data.isEmpty())
+        assert(page.nextKey == null)
+    }
+
+    @Test
+    fun `load handles null firstAirDate`() = runTest {
+        // GIVEN
+        val tvDto = TvDto(
+            id = 1,
+            name = "Unknown Show",
+            overview = "No air date",
+            posterPath = null,
+            backdropPath = null,
+            voteAverage = 0.0,
+            voteCount = 0,
+            firstAirDate = null,
+            originalLanguage = "en"
+        )
+
+        coEvery {
+            movieApiService.searchTvSeries(query = query, page = 1)
+        } returns TvResponse(
+            page = 1,
+            results = listOf(tvDto),
+            totalPages = 1,
+            totalResults = 1
+        )
+
+        // WHEN
+        val result = pagingSource.load(
+            params = PagingSource.LoadParams.Refresh(
+                key = null,
+                loadSize = 20,
+                placeholdersEnabled = false
+            )
+        )
+
+        // THEN
+        assert(result is PagingSource.LoadResult.Page)
+        val page = result as PagingSource.LoadResult.Page
+        val tvSeries = page.data.first()
+        assert(tvSeries.firstAirDate == "")
+        assert(tvSeries.posterPath == null)
+        assert(tvSeries.backdropPath == null)
+    }
 }
