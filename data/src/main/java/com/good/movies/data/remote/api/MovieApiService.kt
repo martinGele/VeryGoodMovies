@@ -37,7 +37,7 @@ interface MovieApiService {
     ): TvResponse
 
     @GET("movie/{movie_id}")
-    suspend fun rgetMovieDetails(
+    suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
         @Query("language") language: String = "en-US"
     ): MovieDetailsDto
