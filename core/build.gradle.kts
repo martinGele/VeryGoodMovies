@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.good.movies.domain"
+    namespace = "com.good.movies.core"
     compileSdk = 36
 
     defaultConfig {
@@ -39,22 +37,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
-    implementation(libs.androidx.core.ktx)
-
-    // Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
-    // Paging
-    implementation(libs.paging.common)
-
     // Coroutines
     implementation(libs.coroutines.core)
-    implementation(libs.coroutines.android)
+
+    // Retrofit (for HttpException)
+    implementation(libs.retrofit)
 
     // Testing
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

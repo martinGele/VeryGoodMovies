@@ -18,6 +18,7 @@ local.properties
 /data/build/
 /data/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
 /domain/build/
+/core/build/
 /domain/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
 /ui/build/
 /ui/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
