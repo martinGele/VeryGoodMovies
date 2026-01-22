@@ -3,6 +3,8 @@ package com.good.movies.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.good.movies.core.util.NetworkResult
+import com.good.movies.core.util.safeApiCall
 import com.good.movies.data.paging.SearchMoviesPagingSource
 import com.good.movies.data.paging.TopRatedMoviesPagingSource
 import com.good.movies.data.remote.api.MovieApiService
@@ -39,7 +41,9 @@ class MovieRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override suspend fun getMovieDetails(movieId: Int): MovieDetails {
-        return movieApiService.getMovieDetails(movieId).toDomain()
+    override suspend fun getMovieDetails(movieId: Int): NetworkResult<MovieDetails> {
+        return safeApiCall {
+            movieApiService.getMovieDetails(movieId).toDomain()
+        }
     }
 }
