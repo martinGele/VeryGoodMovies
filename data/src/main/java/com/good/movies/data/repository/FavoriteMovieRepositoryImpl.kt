@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ * Implementation of [FavoriteMovieRepository] that interacts with the local database
+ */
 class FavoriteMovieRepositoryImpl @Inject constructor(
     private val favoriteMovieDao: FavoriteMovieDao
 ) : FavoriteMovieRepository {

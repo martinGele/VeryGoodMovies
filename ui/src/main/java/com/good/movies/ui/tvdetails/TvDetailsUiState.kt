@@ -10,3 +10,8 @@ data class TvDetailsUiState(
     val error: String? = null,
     val isFavorite: Boolean = false
 )
+
+sealed interface TvDetailsIntent {
+    data object LoadDetails : TvDetailsIntent
+    data object ToggleFavorite : TvDetailsIntent
+}

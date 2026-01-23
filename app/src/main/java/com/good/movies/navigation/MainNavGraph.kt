@@ -11,7 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.good.movies.ui.details.DetailsScreen
+import com.good.movies.ui.moviedetails.DetailsScreen
 import com.good.movies.ui.favorites.FavoritesScreen
 import com.good.movies.ui.movies.topmovieslist.MoviesListScreen
 import com.good.movies.ui.search.SearchScreen

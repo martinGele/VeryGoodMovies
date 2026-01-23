@@ -1,4 +1,4 @@
-package com.good.movies.ui.details
+package com.good.movies.ui.moviedetails
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -36,7 +36,14 @@ class DetailsViewModel @Inject constructor(
         observeFavoriteStatus()
     }
 
-    fun loadMovieDetails() {
+    fun handleIntent(intent: DetailsIntent) {
+        when (intent) {
+            is DetailsIntent.LoadDetails -> loadMovieDetails()
+            is DetailsIntent.ToggleFavorite -> toggleFavorite()
+        }
+    }
+
+    private fun loadMovieDetails() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
 
@@ -59,7 +66,7 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun toggleFavorite() {
+    private fun toggleFavorite() {
         val movieDetails = _uiState.value.movieDetails ?: return
         val isFavorite = _uiState.value.isFavorite
 

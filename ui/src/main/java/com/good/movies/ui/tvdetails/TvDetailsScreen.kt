@@ -73,7 +73,7 @@ fun TvDetailsScreen(
                 },
                 actions = {
                     if (uiState.tvSeriesDetails != null) {
-                        IconButton(onClick = { viewModel.toggleFavorite() }) {
+                        IconButton(onClick = { viewModel.handleIntent(TvDetailsIntent.ToggleFavorite) }) {
                             Icon(
                                 imageVector = if (uiState.isFavorite) {
                                     Icons.Filled.Favorite
@@ -106,7 +106,7 @@ fun TvDetailsScreen(
                 uiState.isLoading -> LoadingComponent()
                 uiState.error != null -> ErrorComponent(
                     message = uiState.error!!,
-                    onRetry = { viewModel.loadTvSeriesDetails() }
+                    onRetry = { viewModel.handleIntent(TvDetailsIntent.LoadDetails) }
                 )
                 uiState.tvSeriesDetails != null -> TvDetailsContent(
                     tvSeriesDetails = uiState.tvSeriesDetails!!

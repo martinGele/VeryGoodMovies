@@ -1,4 +1,4 @@
-package com.good.movies.ui.details
+package com.good.movies.ui.moviedetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -73,7 +73,7 @@ fun DetailsScreen(
                 },
                 actions = {
                     if (uiState.movieDetails != null) {
-                        IconButton(onClick = { viewModel.toggleFavorite() }) {
+                        IconButton(onClick = { viewModel.handleIntent(DetailsIntent.ToggleFavorite) }) {
                             Icon(
                                 imageVector = if (uiState.isFavorite) {
                                     Icons.Filled.Favorite
@@ -106,7 +106,7 @@ fun DetailsScreen(
                 uiState.isLoading -> LoadingComponent()
                 uiState.error != null -> ErrorComponent(
                     message = uiState.error!!,
-                    onRetry = { viewModel.loadMovieDetails() }
+                    onRetry = { viewModel.handleIntent(DetailsIntent.LoadDetails) }
                 )
                 uiState.movieDetails != null -> DetailsContent(
                     movieDetails = uiState.movieDetails!!

@@ -36,7 +36,14 @@ class TvDetailsViewModel @Inject constructor(
         observeFavoriteStatus()
     }
 
-    fun loadTvSeriesDetails() {
+    fun handleIntent(intent: TvDetailsIntent) {
+        when (intent) {
+            is TvDetailsIntent.LoadDetails -> loadTvSeriesDetails()
+            is TvDetailsIntent.ToggleFavorite -> toggleFavorite()
+        }
+    }
+
+    private fun loadTvSeriesDetails() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
 
@@ -59,7 +66,7 @@ class TvDetailsViewModel @Inject constructor(
         }
     }
 
-    fun toggleFavorite() {
+    private fun toggleFavorite() {
         val tvSeriesDetails = _uiState.value.tvSeriesDetails ?: return
         val isFavorite = _uiState.value.isFavorite
 

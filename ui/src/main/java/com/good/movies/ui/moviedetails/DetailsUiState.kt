@@ -1,4 +1,4 @@
-package com.good.movies.ui.details
+package com.good.movies.ui.moviedetails
 
 import androidx.compose.runtime.Stable
 import com.good.movies.domain.model.MovieDetails
@@ -10,4 +10,9 @@ data class DetailsUiState(
     val error: String? = null,
     val isFavorite: Boolean = false
 )
+
+sealed interface DetailsIntent {
+    data object LoadDetails : DetailsIntent
+    data object ToggleFavorite : DetailsIntent
+}
 
