@@ -3,6 +3,7 @@ package com.good.movies.data.di
 import android.content.Context
 import androidx.room.Room
 import com.good.movies.data.local.dao.FavoriteMovieDao
+import com.good.movies.data.local.dao.FavoriteTvSeriesDao
 import com.good.movies.data.local.database.MovieDatabase
 import dagger.Module
 import dagger.Provides
@@ -26,12 +27,18 @@ object DatabaseModule {
             context,
             MovieDatabase::class.java,
             "movies_database"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
     @Singleton
     fun provideFavoriteMovieDao(database: MovieDatabase): FavoriteMovieDao {
         return database.favoriteMovieDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteTvSeriesDao(database: MovieDatabase): FavoriteTvSeriesDao {
+        return database.favoriteTvSeriesDao()
     }
 }

@@ -3,6 +3,7 @@ package com.good.movies.data.remote.api
 import com.good.movies.data.remote.dto.MovieDetailsDto
 import com.good.movies.data.remote.dto.MovieResponse
 import com.good.movies.data.remote.dto.TvResponse
+import com.good.movies.data.remote.dto.TvSeriesDetailsDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -41,4 +42,10 @@ interface MovieApiService {
         @Path("movie_id") movieId: Int,
         @Query("language") language: String = "en-US"
     ): MovieDetailsDto
+
+    @GET("tv/{tv_id}")
+    suspend fun getTvSeriesDetails(
+        @Path("tv_id") tvId: Int,
+        @Query("language") language: String = "en-US"
+    ): TvSeriesDetailsDto
 }

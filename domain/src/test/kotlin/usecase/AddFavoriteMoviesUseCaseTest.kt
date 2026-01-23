@@ -6,7 +6,6 @@ import com.good.movies.domain.usecase.AddFavoriteMovieUseCase
 import io.mockk.coJustRun
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 

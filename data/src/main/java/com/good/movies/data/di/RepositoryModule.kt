@@ -1,9 +1,11 @@
 package com.good.movies.data.di
 
 import com.good.movies.data.repository.FavoriteMovieRepositoryImpl
+import com.good.movies.data.repository.FavoriteTvSeriesRepositoryImpl
 import com.good.movies.data.repository.MovieRepositoryImpl
 import com.good.movies.data.repository.TvRepositoryImpl
 import com.good.movies.domain.repository.FavoriteMovieRepository
+import com.good.movies.domain.repository.FavoriteTvSeriesRepository
 import com.good.movies.domain.repository.MovieRepository
 import com.good.movies.domain.repository.TvRepository
 import dagger.Binds
@@ -37,4 +39,10 @@ abstract class RepositoryModule {
     abstract fun bindFavoriteMovieRepository(
         favoriteMovieRepositoryImpl: FavoriteMovieRepositoryImpl
     ): FavoriteMovieRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFavoriteTvSeriesRepository(
+        favoriteTvSeriesRepositoryImpl: FavoriteTvSeriesRepositoryImpl
+    ): FavoriteTvSeriesRepository
 }

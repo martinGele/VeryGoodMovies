@@ -38,6 +38,7 @@ import com.good.movies.ui.theme.Spacing
 @Composable
 fun SearchScreen(
     onMovieClick: (Int) -> Unit,
+    onTvSeriesClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
@@ -54,6 +55,7 @@ fun SearchScreen(
         tvSeries = tvSeries,
         onIntent = viewModel::handleIntent,
         onMovieClick = onMovieClick,
+        onTvSeriesClick = onTvSeriesClick,
         modifier = modifier
     )
 }
@@ -67,6 +69,7 @@ private fun SearchContent(
     tvSeries: LazyPagingItems<TvSeries>,
     onIntent: (SearchIntent) -> Unit,
     onMovieClick: (Int) -> Unit,
+    onTvSeriesClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -166,7 +169,10 @@ private fun SearchContent(
                                     key = { index -> "${tvSeries.peek(index)?.id}_$index" }
                                 ) { index ->
                                     tvSeries[index]?.let { tv ->
-                                        TvSeriesItem(tvSeries = tv)
+                                        TvSeriesItem(
+                                            tvSeries = tv,
+                                            onClick = { onTvSeriesClick(tv.id) }
+                                        )
                                     }
                                 }
 

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -24,6 +23,7 @@ import com.good.movies.ui.theme.Spacing
 @Composable
 fun FavoritesScreen(
     onMovieClick: (Int) -> Unit,
+    onTvSeriesClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: FavoritesViewModel = hiltViewModel()
 ) {
@@ -32,6 +32,7 @@ fun FavoritesScreen(
     FavoritesContent(
         uiState = uiState,
         onMovieClick = onMovieClick,
+        onTvSeriesClick = onTvSeriesClick,
         onIntent = viewModel::handleIntent,
         modifier = modifier
     )
@@ -39,9 +40,10 @@ fun FavoritesScreen(
 
 @Composable
 private fun FavoritesContent(
-    uiState: FavoritesMoviesUiState,
+    uiState: FavoritesUiState,
     onMovieClick: (Int) -> Unit,
-    onIntent: (FavoritesMoviesIntent) -> Unit,
+    onTvSeriesClick: (Int) -> Unit,
+    onIntent: (FavoritesIntent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -62,12 +64,27 @@ private fun FavoritesContent(
                 ) {
                     items(
                         items = uiState.favorites,
-                        key = { it.id }
-                    ) { movie ->
-                        FavoriteMovieItem(
-                            movie = movie,
-                            onClick = { onMovieClick(movie.id) },
-                            onRemove = { onIntent(FavoritesMoviesIntent.RemoveFavorite(movie.id)) }
+                        key = { item ->
+                            when (item) {
+                                is FavoriteItem.Movie -> "movie_${item.id}"
+                                is FavoriteItem.TvSeries -> "tv_${item.id}"
+                            }
+                        }
+                    ) { item ->
+                        FavoriteItemCard(
+                            item = item,
+                            onClick = {
+                                when (item) {
+                                    is FavoriteItem.Movie -> onMovieClick(item.id)
+                                    is FavoriteItem.TvSeries -> onTvSeriesClick(item.id)
+                                }
+                            },
+                            onRemove = {
+                                when (item) {
+                                    is FavoriteItem.Movie -> onIntent(FavoritesIntent.RemoveFavoriteMovie(item.id))
+                                    is FavoriteItem.TvSeries -> onIntent(FavoritesIntent.RemoveFavoriteTvSeries(item.id))
+                                }
+                            }
                         )
                     }
                 }
@@ -88,13 +105,13 @@ private fun EmptyFavoritesMessage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "No saved movies",
+                text = "No favorites yet",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(modifier = Modifier.height(Spacing.small))
             Text(
-                text = "Movies you save will appear here",
+                text = "Movies and TV shows you save will appear here",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

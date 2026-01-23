@@ -1,4 +1,4 @@
-package com.good.movies.ui.navigation
+package com.good.movies.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite

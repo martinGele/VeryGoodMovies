@@ -28,9 +28,11 @@ import com.good.movies.ui.theme.Spacing
 @Composable
 fun TvSeriesItem(
     tvSeries: TvSeries,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
+        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = Size.cardElevation),
         shape = RoundedCornerShape(Radius.medium)

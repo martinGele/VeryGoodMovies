@@ -1,4 +1,4 @@
-package com.good.movies.ui.navigation
+package com.good.movies.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -15,6 +15,7 @@ import com.good.movies.ui.details.DetailsScreen
 import com.good.movies.ui.favorites.FavoritesScreen
 import com.good.movies.ui.movies.topmovieslist.MoviesListScreen
 import com.good.movies.ui.search.SearchScreen
+import com.good.movies.ui.tvdetails.TvDetailsScreen
 
 /**
  * Main navigation graph for the app, defining the navigation structure
@@ -59,6 +60,9 @@ fun MainNavGraph() {
                 SearchScreen(
                     onMovieClick = { movieId ->
                         navController.navigate(NavigationItem.Details.createRoute(movieId))
+                    },
+                    onTvSeriesClick = { tvId ->
+                        navController.navigate(NavigationItem.TvDetails.createRoute(tvId))
                     }
                 )
             }
@@ -66,6 +70,9 @@ fun MainNavGraph() {
                 FavoritesScreen(
                     onMovieClick = { movieId ->
                         navController.navigate(NavigationItem.Details.createRoute(movieId))
+                    },
+                    onTvSeriesClick = { tvId ->
+                        navController.navigate(NavigationItem.TvDetails.createRoute(tvId))
                     }
                 )
             }
@@ -76,6 +83,16 @@ fun MainNavGraph() {
                 )
             ) {
                 DetailsScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+            composable(
+                route = NavigationItem.TvDetails.route,
+                arguments = listOf(
+                    navArgument("tvId") { type = NavType.IntType }
+                )
+            ) {
+                TvDetailsScreen(
                     onBackClick = { navController.popBackStack() }
                 )
             }

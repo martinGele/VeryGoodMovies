@@ -25,14 +25,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.good.movies.domain.model.FavoriteMovie
 import com.good.movies.ui.theme.Radius
 import com.good.movies.ui.theme.Size
 import com.good.movies.ui.theme.Spacing
 
 @Composable
-fun FavoriteMovieItem(
-    movie: FavoriteMovie,
+fun FavoriteItemCard(
+    item: FavoriteItem,
     onClick: () -> Unit,
     onRemove: () -> Unit,
     modifier: Modifier = Modifier
@@ -50,8 +49,8 @@ fun FavoriteMovieItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
-                model = movie.posterPath,
-                contentDescription = movie.title,
+                model = item.posterPath,
+                contentDescription = item.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .width(80.dp)
@@ -65,7 +64,7 @@ fun FavoriteMovieItem(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = movie.title,
+                    text = item.title,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -74,7 +73,7 @@ fun FavoriteMovieItem(
                 Spacer(modifier = Modifier.height(Spacing.extraSmall))
 
                 Text(
-                    text = movie.voteAverageFormatted,
+                    text = item.voteAverageFormatted,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -82,7 +81,7 @@ fun FavoriteMovieItem(
                 Spacer(modifier = Modifier.height(Spacing.extraSmall))
 
                 Text(
-                    text = movie.releaseDate,
+                    text = item.date,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -90,7 +89,7 @@ fun FavoriteMovieItem(
                 Spacer(modifier = Modifier.height(Spacing.small))
 
                 Text(
-                    text = movie.overview,
+                    text = item.overview,
                     style = MaterialTheme.typography.bodySmall,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
