@@ -31,6 +31,10 @@ import com.good.movies.ui.components.SearchComponent
 import com.good.movies.ui.movies.topmovieslist.MovieItem
 import com.good.movies.ui.theme.Spacing
 
+/**
+ * Screen that displays search functionality for movies and TV series.
+ * @param onMovieClick Callback when a movie is clicked, providing the movie ID.
+ */
 @Composable
 fun SearchScreen(
     onMovieClick: (Int) -> Unit,
@@ -108,6 +112,11 @@ private fun SearchContent(
                         onRetry = { movies.retry() },
                         emptyMessage = "No movies found",
                         content = {
+                            /**
+                             * Displays a list of movies using LazyColumn.
+                             * Each movie item is represented by the MovieItem composable.
+                             * Handles pagination by showing a loading component at the end when more data is being loaded.
+                             */
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize(),
                                 contentPadding = PaddingValues(Spacing.medium),
@@ -142,6 +151,11 @@ private fun SearchContent(
                         onRetry = { tvSeries.retry() },
                         emptyMessage = "No TV series found",
                         content = {
+                            /**
+                             * Displays a list of TV series using LazyColumn.
+                             * Each TV series item is represented by the TvSeriesItem composable.
+                             * Handles pagination by showing a loading component at the end when more data is being loaded.
+                             */
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize(),
                                 contentPadding = PaddingValues(Spacing.medium),
@@ -170,64 +184,4 @@ private fun SearchContent(
     }
 }
 
-@Composable
-private fun ContentTypeSelector(
-    selectedContentType: ContentType,
-    onContentTypeSelected: (ContentType) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(Spacing.small)
-    ) {
-        FilterChip(
-            selected = selectedContentType == ContentType.MOVIES,
-            onClick = { onContentTypeSelected(ContentType.MOVIES) },
-            label = { Text("Movies") }
-        )
-        FilterChip(
-            selected = selectedContentType == ContentType.TV_SERIES,
-            onClick = { onContentTypeSelected(ContentType.TV_SERIES) },
-            label = { Text("TV Series") }
-        )
-    }
-}
 
-@Composable
-private fun SearchResultsList(
-    loadState: LoadState,
-    itemCount: Int,
-    onRetry: () -> Unit,
-    emptyMessage: String,
-    content: @Composable () -> Unit
-) {
-    when (loadState) {
-        is LoadState.Loading -> {
-            LoadingComponent()
-        }
-
-        is LoadState.Error -> {
-            ErrorComponent(
-                message = loadState.error.message ?: "Unknown error",
-                onRetry = onRetry
-            )
-        }
-
-        is LoadState.NotLoading -> {
-            if (itemCount == 0) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = emptyMessage,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            } else {
-                content()
-            }
-        }
-    }
-}

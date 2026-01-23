@@ -11,6 +11,12 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FavoriteMovieDao {
 
+    /**
+     * Retrieves all favorite movies ordered by the time they were added, with the most recent first.
+     * is favorite movies is a Flow to observe changes in real-time.
+     * add favorite movie with current timestamp.
+     * remove favorite movie by id.
+     */
     @Query("SELECT * FROM favorite_movies ORDER BY addedAt DESC")
     fun getAllFavorites(): Flow<List<FavoriteMovieEntity>>
 

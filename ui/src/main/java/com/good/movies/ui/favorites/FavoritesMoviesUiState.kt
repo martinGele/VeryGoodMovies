@@ -8,3 +8,9 @@ data class FavoritesMoviesUiState(
     val favorites: List<FavoriteMovie> = emptyList(),
     val isLoading: Boolean = true
 )
+
+
+sealed interface FavoritesMoviesIntent {
+    data object LoadFavorites : FavoritesMoviesIntent
+    data class RemoveFavorite(val movieId: Int) : FavoritesMoviesIntent
+}

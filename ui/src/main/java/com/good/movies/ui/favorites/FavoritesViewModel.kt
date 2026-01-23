@@ -25,6 +25,17 @@ class FavoritesViewModel @Inject constructor(
         observeFavorites()
     }
 
+
+    fun handleIntent(intent: FavoritesMoviesIntent) {
+        when (intent) {
+            is FavoritesMoviesIntent.RemoveFavorite -> removeFavorite(intent.movieId)
+            is FavoritesMoviesIntent.LoadFavorites -> {
+               observeFavorites()
+            }
+        }
+    }
+
+
     private fun observeFavorites() {
         viewModelScope.launch {
             getFavoriteMoviesUseCase().collect { favorites ->
@@ -38,7 +49,7 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    fun removeFavorite(movieId: Int) {
+    private fun removeFavorite(movieId: Int) {
         viewModelScope.launch {
             removeFavoriteMovieUseCase(movieId)
         }

@@ -1,5 +1,6 @@
 package com.good.movies.ui.search
 
+import androidx.compose.runtime.Stable
 import androidx.paging.PagingData
 import com.good.movies.domain.model.Movie
 import com.good.movies.domain.model.TvSeries
@@ -11,6 +12,7 @@ enum class ContentType {
     TV_SERIES
 }
 
+@Stable
 data class SearchUiState(
     val movies: Flow<PagingData<Movie>> = emptyFlow(),
     val tvSeries: Flow<PagingData<TvSeries>> = emptyFlow(),
