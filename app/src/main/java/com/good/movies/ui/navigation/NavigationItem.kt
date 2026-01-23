@@ -11,4 +11,6 @@ sealed class NavigationItem(val route: String, val label: String) {
     object Details : NavigationItem("details/{movieId}", "Details") {
         fun createRoute(movieId: Int): String = "details/$movieId"
     }
+
+    object Favorites : NavigationItem("favorites", "Favorites")
 }

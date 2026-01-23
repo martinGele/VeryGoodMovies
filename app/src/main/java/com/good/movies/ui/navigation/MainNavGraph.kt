@@ -12,6 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.good.movies.ui.details.DetailsScreen
+import com.good.movies.ui.favorites.FavoritesScreen
 import com.good.movies.ui.movies.topmovieslist.MoviesListScreen
 import com.good.movies.ui.search.SearchScreen
 
@@ -56,6 +57,13 @@ fun MainNavGraph() {
             }
             composable(NavigationItem.Search.route) {
                 SearchScreen(
+                    onMovieClick = { movieId ->
+                        navController.navigate(NavigationItem.Details.createRoute(movieId))
+                    }
+                )
+            }
+            composable(NavigationItem.Favorites.route) {
+                FavoritesScreen(
                     onMovieClick = { movieId ->
                         navController.navigate(NavigationItem.Details.createRoute(movieId))
                     }

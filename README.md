@@ -16,6 +16,7 @@ The app follows Clean Architecture with separate modules:
 - **app** - Entry point, MainActivity
 - **domain** - Business logic, use cases, models
 - **data** - API calls, DTOs, repository implementation
+- **core** - Common utilities, that are data-agnostic
 - **ui** - Screens, ViewModels, Compose components
 
 Dependencies flow inward: `app -> ui -> data -> domain`
@@ -28,6 +29,8 @@ Dependencies flow inward: `app -> ui -> data -> domain`
 - Paging 3 for infinite scroll
 - Coil for image loading
 - Coroutines + Flow for async stuff
+- Room for local caching
+- Material 3 design components
 
 ## Features
 
@@ -36,6 +39,7 @@ Dependencies flow inward: `app -> ui -> data -> domain`
 - See movie posters, ratings, and descriptions
 - Material 3 design
 - Error handling with retry
+- Offline support for favorite movies
 
 ## Project Structure
 
@@ -55,4 +59,7 @@ data/
 ui/
   movies/MoviesScreen.kt, MoviesViewModel.kt
   movies/components/MovieItem.kt, SearchBar.kt, etc.
+
+core/  
+    util/NetworkUtils.kt, Resource.kt
 ```

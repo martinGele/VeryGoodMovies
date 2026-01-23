@@ -1,6 +1,7 @@
 package com.good.movies.ui.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -26,6 +27,11 @@ fun BottomNavigationBar(selectedRoute: String, onItemSelected: (String) -> Unit)
             route = NavigationItem.Search.route,
             label = NavigationItem.Search.label,
             icon = Icons.Default.Search
+        ),
+        NavigationBarItemData(
+            route = NavigationItem.Favorites.route,
+            label = NavigationItem.Favorites.label,
+            icon = Icons.Default.Favorite
         )
     )
     NavigationBar {

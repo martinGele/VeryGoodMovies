@@ -7,6 +7,7 @@ import com.good.movies.domain.model.MovieDetails
 data class DetailsUiState(
     val isLoading: Boolean = false,
     val movieDetails: MovieDetails? = null,
-    val error: String? = null
+    val error: String? = null,
+    val isFavorite: Boolean = false
 )
 
